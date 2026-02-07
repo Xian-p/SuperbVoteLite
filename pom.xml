@@ -28,6 +28,14 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.vexsoftware</groupId>
+      <artifactId>nuvotifier</artifactId>
+      <version>local</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libs/nuvotifier.jar</systemPath>
+    </dependency>
+
     <!-- NuVotifier/Votifier API:
          Add the NuVotifier jar to your IDE as "provided" / compileOnly manually (see notes). -->
   </dependencies>
