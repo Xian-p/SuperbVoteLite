@@ -1,0 +1,31 @@
+settings:
+  debug: false
+
+  # If true, votes for offline players are stored and rewarded when they join
+  store-offline-votes: true
+
+  # If true, stored votes are paid out automatically when the player joins
+  process-offline-on-join: true
+
+messages:
+  # Set to "" to disable
+  received: "&aThanks for voting on &e%service%&a! Rewards have been delivered."
+  broadcast: "&e%player% &7just voted on &b%service%&7!"
+  offline-queued: "&7Your vote was queued and will be rewarded when you join."
+
+rewards:
+  # Always run for every vote (any service)
+  global-commands:
+    - "eco give %player% 100"
+    - "say Thanks %player% for voting on %service%!"
+
+  # Add/override commands per service name
+  # The service name is vote.getServiceName() from NuVotifier (often the site name configured)
+  per-service:
+    PlanetMinecraft:
+      commands:
+        - "eco give %player% 250"
+        - "crate givekey %player% vote 1"
+    TopG:
+      commands:
+        - "give %player% diamond 1"
