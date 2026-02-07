@@ -1,0 +1,16 @@
+name: SuperbVoteLite
+version: 1.0.0
+main: me.example.superbvotelite.SuperbVoteLite
+api-version: "1.21"
+softdepend: [Votifier]
+author: you
+
+commands:
+  svl:
+    description: SuperbVoteLite commands
+    usage: /svl reload
+    permission: svl.admin
+
+permissions:
+  svl.admin:
+    default: op
