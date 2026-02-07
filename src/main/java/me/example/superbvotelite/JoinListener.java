@@ -1,7 +1,6 @@
 package me.example.superbvotelite;
 
 import com.vexsoftware.votifier.model.Vote;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,16 +29,21 @@ public final class JoinListener implements Listener {
         List<OfflineVoteStore.StoredVote> votes = store.popVotes(uuid);
         if (votes.isEmpty()) return;
 
-        // Deliver one by one (so per-service rewards work)
+        // Re-use the same reward logic
         VoteListener rewarder = new VoteListener(plugin, store);
 
         for (OfflineVoteStore.StoredVote v : votes) {
+            // Your NuVotifier version needs the 4-arg constructor (service, user, address, timestamp)
             Vote vote = new Vote(
-        v.getServiceName(),
-        player.getName(),
-        v.getAddress() == null ? "" : v.getAddress(),
-        String.valueOf(v.getTimeMillis())
-);
+                    v.getServiceName(),
+                    player.getName(),
+                    v.getAddress() == null ? "" : v.getAddress(),
+                    String.valueOf(v.getTimeMillis())
+            );
+
+            // PlayerJoinEvent runs on the main thread, so it's safe to execute rewards directly
+            rewarder.deliverRewards(player, vote);
+        }
 
         store.saveAsync();
 
@@ -47,4 +51,4 @@ public final class JoinListener implements Listener {
             plugin.getLogger().info("Processed " + votes.size() + " stored vote(s) for " + player.getName());
         }
     }
-}
+                        }
