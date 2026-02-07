@@ -34,9 +34,12 @@ public final class JoinListener implements Listener {
         VoteListener rewarder = new VoteListener(plugin, store);
 
         for (OfflineVoteStore.StoredVote v : votes) {
-            Vote vote = new Vote(v.getServiceName(), player.getName(), v.getAddress());
-            Bukkit.getScheduler().runTask(plugin, () -> rewarder.deliverRewards(player, vote));
-        }
+            Vote vote = new Vote(
+        v.getServiceName(),
+        player.getName(),
+        v.getAddress() == null ? "" : v.getAddress(),
+        String.valueOf(v.getTimeMillis())
+);
 
         store.saveAsync();
 
